@@ -8,6 +8,7 @@ void ofApp::setup(){
 	
 	playerPartsParameters_ = currentPlayer_.getPerson();
 	allPlatforms.push_back(Platform());
+	carl_.load(CARL_IMAGE);
 }
 
 //--------------------------------------------------------------
@@ -52,10 +53,12 @@ void ofApp::draw(){
 	ofDrawLine(lastX, lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2)
 		, endRightArmX, endRightArmY);
 
-
 	lastY -= playerPartsParameters_[Person::kTorsoIndex][0];
+	
 	//draw head
 	ofDrawCircle(lastX, lastY - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
+	carl_.draw(lastX - 1.5 * playerPartsParameters_[Person::kCircleRadiusIndex][0], lastY - 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]
+		, 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0], 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]);
 
 	if (mouseX_ != -100 && mouseY_ != -100) {
 		ofSetColor(ofColor::blue);

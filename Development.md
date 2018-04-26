@@ -5,3 +5,5 @@
 ## 4/26:
 ### 1. created person, and displayed person
 ### 2. added marker where mouse is, and dotted lines from right arm to the marker
+### 3. drew Professor Carl Graham Evans!
+### 4. Added sound

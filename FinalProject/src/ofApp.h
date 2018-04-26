@@ -1,6 +1,7 @@
 #pragma once
 #define SOUND_NAME "Levels.mp3"
 #define MAX_RGB 256
+#define CARL_IMAGE "Carl.png"
 
 #include "ofMain.h"
 #include "../../../../../../../source/repos/FinalProject/FinalProject/Platform.h"
@@ -22,6 +23,8 @@ private:
 	int mouseY_ = -100;
 
 	int kDottedNumSeparators = 6;
+
+	ofImage carl_;
 
 public:
 	void setup();
