@@ -7,16 +7,16 @@ class Platform
 {
 private:
 	//x position of the platform
-	int xPos;
+	int xPos_;
 
 	//y position of the platform
-	int yPos;
+	int yPos_;
 
 	//length of the platform
-	int length = -1;
+	int length_ = -1;
 
 	//height of the platform
-	int height = -1;
+	int height_ = -1;
 public:
 	//initializer with random width, height and length determined by area
 	Platform();

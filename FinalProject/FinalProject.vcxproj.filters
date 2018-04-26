@@ -67,6 +67,9 @@
     <ClCompile Include="Platform.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -180,6 +183,9 @@
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

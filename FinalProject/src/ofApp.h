@@ -1,11 +1,22 @@
 #pragma once
+#define SOUND_NAME "Levels.mp3"
+#define MAX_RGB 256
 
 #include "ofMain.h"
 #include "../../../../../../../source/repos/FinalProject/FinalProject/Platform.h"
+#include "../../../../../../../source/repos/FinalProject/FinalProject/Person.h"
 
 class ofApp : public ofBaseApp{
 private:
+	//platforms that have been initialized
 	std::vector<Platform> allPlatforms;
+	
+	//sound I'm going to be playing
+	ofSoundPlayer mySound_;
+
+	Person currentPlayer_;
+
+	int** playerPartsParameters_;
 
 public:
 	void setup();

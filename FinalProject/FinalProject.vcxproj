@@ -207,6 +207,7 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -233,6 +234,7 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
