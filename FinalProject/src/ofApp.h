@@ -18,10 +18,16 @@ private:
 
 	int** playerPartsParameters_;
 
+	int mouseX_ = -100;
+	int mouseY_ = -100;
+
+	int kDottedNumSeparators = 6;
+
 public:
 	void setup();
 	void update();
 	void draw();
+	void drawDottedLine(int startX, int startY, int endX, int endY);
 
 	void keyPressed(int key);
 	void keyReleased(int key);

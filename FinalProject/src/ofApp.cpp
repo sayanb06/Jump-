@@ -46,14 +46,38 @@ void ofApp::draw(){
 	ofDrawLine(lastX, lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2)
 		, lastX - playerPartsParameters_[Person::kLeftArmIndex][0], lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2));
 
+	int endRightArmX = lastX + playerPartsParameters_[Person::kRightArmIndex][0];
+	int endRightArmY = lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2);
 	//draw Right Arm
 	ofDrawLine(lastX, lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2)
-		, lastX + playerPartsParameters_[Person::kRightArmIndex][0], lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2));
+		, endRightArmX, endRightArmY);
+
 
 	lastY -= playerPartsParameters_[Person::kTorsoIndex][0];
 	//draw head
 	ofDrawCircle(lastX, lastY - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
 
+	if (mouseX_ != -100 && mouseY_ != -100) {
+		ofSetColor(ofColor::blue);
+		ofDrawCircle(mouseX_, mouseY_, 15);
+		drawDottedLine(endRightArmX, endRightArmY, mouseX_, mouseY_);
+	}
+}
+
+void ofApp::drawDottedLine(int startX, int startY, int endX, int endY) {
+	double currentX = startX;
+	double currentY = startY;
+	double differenceX = (endX - startX) / (10.0 * kDottedNumSeparators);
+	double differenceY = (endY - startY) / (10.0 * kDottedNumSeparators);
+	double angle = atan(differenceY / differenceX);
+	if (differenceX < 0) {
+		angle += PI;
+	}
+	for (int dashNumber = 0; dashNumber < kDottedNumSeparators; ++dashNumber) {
+		ofDrawCircle(currentX, currentY, 2);
+		currentX += differenceX + 5 * cos(angle);
+		currentY += differenceY + 5 * sin(angle);
+	}
 }
 
 //--------------------------------------------------------------
@@ -68,7 +92,8 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+	mouseX_ = x;
+	mouseY_ = y;
 }
 
 //--------------------------------------------------------------
@@ -88,12 +113,14 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+	mouseX_ = x;
+	mouseY_ = y;
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-
+	mouseX_ = -100;
+	mouseY_ = -100;
 }
 
 //--------------------------------------------------------------

@@ -3,4 +3,5 @@
 #### created platforms and displayed random platforms (new one each time draw was called)
 
 ## 4/26:
-### created person, and displayed person
+### 1. created person, and displayed person
+### 2. added marker where mouse is, and dotted lines from right arm to the marker
