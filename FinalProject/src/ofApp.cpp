@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	mySound_.load(SOUND_NAME);
-	mySound_.play();
+	//mySound_.play();
 	mySound_.setLoop(true);
 	
 	playerPartsParameters_ = currentPlayer_.getPerson();
@@ -18,52 +18,97 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	int RColor = rand() % MAX_RGB;
-	int GColor = rand() % MAX_RGB;
-	int BColor = rand() % MAX_RGB;
-	ofSetColor(ofColor(RColor, GColor, BColor));
+	if (clock() - startTime_ > 400) {
+		rValue_ = rand() % MAX_RGB;
+		gValue_ = rand() % MAX_RGB;
+		bValue_ = rand() % MAX_RGB;
+		startTime_ = clock();
+	}
+	ofSetColor(ofColor(rValue_, gValue_, bValue_));
 	for (int index = 0; index < allPlatforms.size(); ++index) {
 		ofDrawRectangle(allPlatforms[index].getPlatform());
 	}
 	
-	ofSetColor(ofColor(MAX_RGB - RColor, MAX_RGB - GColor, MAX_RGB - BColor));
-	int lastY = allPlatforms.back().getYPos() - (allPlatforms.back().getHeight() / 2); //top of the platform
-	int lastX = allPlatforms.back().getXPos() + (allPlatforms.back().getLength() / 2); //middle of the platform
+	int lastX, lastY;
 	
+	if (!isMoving_) {
+		ofSetColor(ofColor(MAX_RGB - rValue_, MAX_RGB - gValue_, MAX_RGB - bValue_));
+		lastY = allPlatforms.back().getYPos() - (allPlatforms.back().getHeight() / 2); //top of the platform
+		lastX = allPlatforms.back().getXPos() + (allPlatforms.back().getLength() / 2); //middle of the platform
+
+		drawLeg(lastX, lastY);
+		drawTorso(lastX, lastY);
+
+		ofSetColor(ofColor(255, 0, 0, 255 / 4.0));
+		if (mouseX_ != SENTIEL_MOUSE_POSITION && mouseY_ != SENTIEL_MOUSE_POSITION) {
+			if (mouseX_ < lastX) {
+				drawRightArm(lastX, lastY);
+			}
+			else {
+				drawLeftArm(lastX, lastY);
+			}
+			ofDrawCircle(mouseX_, mouseY_, 15);
+			drawDottedLine(lastX, lastY - playerPartsParameters_[Person::kTorsoIndex][0] / 2, mouseX_, mouseY_);
+		}
+		else {
+			drawRightArm(lastX, lastY);
+			drawLeftArm(lastX, lastY);
+		}
+		lastY -= playerPartsParameters_[Person::kTorsoIndex][0];
+		lastHeadPositionX_ = lastX;
+		lastHeadPositionY_ = lastY;
+	}
+
+	ofSetColor(rValue_, gValue_, bValue_);
+	drawHead();
+}
+
+void ofApp::drawLeg(int &lastX, int &lastY) {
 	//draw left leg
-	ofDrawLine(lastX, lastY - playerPartsParameters_[Person::kLeftLegIndex][1],
-		lastX - playerPartsParameters_[Person::kLeftLegIndex][0], lastY);
+	ofDrawLine(lastX, lastY - playerPartsParameters_[Person::kLegIndex][1],
+		lastX - playerPartsParameters_[Person::kLegIndex][0], lastY);
 	//draw right leg
-	ofDrawLine(lastX, lastY - playerPartsParameters_[Person::kRightLegIndex][1],
-		lastX + playerPartsParameters_[Person::kRightLegIndex][0], lastY);
+	ofDrawLine(lastX, lastY - playerPartsParameters_[Person::kLegIndex][1],
+		lastX + playerPartsParameters_[Person::kLegIndex][0], lastY);
 	
 	//reset Y
-	lastY = lastY - max(playerPartsParameters_[Person::kLeftLegIndex][1], playerPartsParameters_[Person::kRightLegIndex][1]);
-	
-	//draw torso
+	lastY -= max(playerPartsParameters_[Person::kLegIndex][1], playerPartsParameters_[Person::kLegIndex][1]);
+}
+
+void ofApp::drawTorso(int lastX, int lastY) {
 	ofDrawLine(lastX, lastY, lastX, lastY - playerPartsParameters_[Person::kTorsoIndex][0]);
+}
 
-	//draw Left Arm
+void ofApp::drawRightArm(int lastX, int lastY) {
 	ofDrawLine(lastX, lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2)
-		, lastX - playerPartsParameters_[Person::kLeftArmIndex][0], lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2));
+		, lastX + playerPartsParameters_[Person::kArmIndex][0], lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2));
+}
 
-	int endRightArmX = lastX + playerPartsParameters_[Person::kRightArmIndex][0];
-	int endRightArmY = lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2);
-	//draw Right Arm
+void ofApp::drawLeftArm(int lastX, int lastY) {
 	ofDrawLine(lastX, lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2)
-		, endRightArmX, endRightArmY);
+		, lastX - playerPartsParameters_[Person::kArmIndex][0], lastY - (playerPartsParameters_[Person::kTorsoIndex][0] / 2));
+}
 
-	lastY -= playerPartsParameters_[Person::kTorsoIndex][0];
-	
-	//draw head
-	ofDrawCircle(lastX, lastY - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
-	carl_.draw(lastX - 1.5 * playerPartsParameters_[Person::kCircleRadiusIndex][0], lastY - 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]
+void ofApp::drawHead() {
+	ofDrawCircle(lastHeadPositionX_, lastHeadPositionY_ - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
+	carl_.draw(lastHeadPositionX_ - 1.5 * playerPartsParameters_[Person::kCircleRadiusIndex][0], lastHeadPositionY_ - 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]
 		, 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0], 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]);
 
-	if (mouseX_ != -100 && mouseY_ != -100) {
-		ofSetColor(ofColor::blue);
-		ofDrawCircle(mouseX_, mouseY_, 15);
-		drawDottedLine(endRightArmX, endRightArmY, mouseX_, mouseY_);
+	if (isMoving_) {
+		double differenceX = (clickedLocations_.back()[0] - lastHeadPositionX_) / 1000.0;
+		double differenceY = (clickedLocations_.back()[1] - lastHeadPositionX_) / 1000.0;
+		double angle = atan(differenceY / differenceX);
+		if (differenceX < 0) {
+			angle += PI;
+		}
+
+		if (abs(differenceX) > abs(3 * cos(angle))) {
+			lastHeadPositionX_ += differenceX;
+			lastHeadPositionY_ += differenceY;
+		} else {
+			lastHeadPositionX_ += 3 * cos(angle);
+			lastHeadPositionY_ += 3 * sin(angle);
+		}
 	}
 }
 
@@ -95,8 +140,13 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	mouseX_ = x;
-	mouseY_ = y;
+	if ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
+		mouseX_ = x;
+		mouseY_ = y;
+	} else {
+		mouseX_ = SENTIEL_MOUSE_POSITION;
+		mouseY_ = SENTIEL_MOUSE_POSITION;
+	}
 }
 
 //--------------------------------------------------------------
@@ -106,7 +156,10 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+	if (!isMoving_ && (x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
+		clickedLocations_.push_back({ x, y });
+		isMoving_ = true;
+	}
 }
 
 //--------------------------------------------------------------
@@ -116,14 +169,16 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-	mouseX_ = x;
-	mouseY_ = y;
+	if ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
+		mouseX_ = x;
+		mouseY_ = y;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-	mouseX_ = -100;
-	mouseY_ = -100;
+	mouseX_ = SENTIEL_MOUSE_POSITION;
+	mouseY_ = SENTIEL_MOUSE_POSITION;
 }
 
 //--------------------------------------------------------------

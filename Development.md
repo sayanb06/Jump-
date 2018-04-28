@@ -7,3 +7,6 @@
 ### 2. added marker where mouse is, and dotted lines from right arm to the marker
 ### 3. drew Professor Carl Graham Evans!
 ### 4. Added sound
+
+##4/27:
+### added motion when the user clicks it's not going in the correct direction

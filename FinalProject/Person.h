@@ -6,15 +6,15 @@ class Person {
 private:
 	/*
 	[
-		[CircleRadius],
-		[yChangeTorso], //body
-		[xChangeLeft, yChangeTopToBottom]	//left leg		
-		[xChangeRight, yChangeTopToBottom]	//right leg
+		[CircleRadius],						//head
+		[yChangeTorso],						//body
+		[xChange, yChangeTopToBottom],		//Both Legs
+		[xChangeArm],						//Both Arms
 	]
 	*/
 	int** personPartsParameters_;
 	
-	const int kNumberOfBodyParts = 6;
+	const int kNumberOfBodyParts = 4;
 
 	const int kcircleParamArrayLen = 1;
 	const int kTorsoParamArrayLen = 1;
@@ -24,10 +24,8 @@ private:
 public:
 	static const int kCircleRadiusIndex = 0;
 	static const int kTorsoIndex = 1;
-	static const int kLeftLegIndex = 2;
-	static const int kRightLegIndex = 3; 
-	static const int kLeftArmIndex = 4;
-	static const int kRightArmIndex = 5;
+	static const int kLegIndex = 2;
+	static const int kArmIndex = 3;
 
 
 	Person();

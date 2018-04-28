@@ -12,23 +12,14 @@ Person::Person() {
 	personPartsParameters_[kTorsoIndex] = new int[kTorsoParamArrayLen];
 	personPartsParameters_[kTorsoIndex][0] = 30;
 	
-	//Left Leg
-	personPartsParameters_[kLeftLegIndex] = new int[kLegParamArrayLen];
-	personPartsParameters_[kLeftLegIndex][0] = 20;
-	personPartsParameters_[kLeftLegIndex][1] = 30;
+	//Both Legs
+	personPartsParameters_[kLegIndex] = new int[kLegParamArrayLen];
+	personPartsParameters_[kLegIndex][0] = 20;
+	personPartsParameters_[kLegIndex][1] = 30;
 
-	//Right Leg
-	personPartsParameters_[kRightLegIndex] = new int[kLegParamArrayLen];
-	personPartsParameters_[kRightLegIndex][0] = 20;
-	personPartsParameters_[kRightLegIndex][1] = 30;
-
-	//Right Arm
-	personPartsParameters_[kRightArmIndex] = new int[kArmParamArrayLen];
-	personPartsParameters_[kRightArmIndex][0] = 20;
-
-	//Left Arm
-	personPartsParameters_[kLeftArmIndex] = new int[kArmParamArrayLen];
-	personPartsParameters_[kLeftArmIndex][0] = 20;
+	//Both Arms
+	personPartsParameters_[kArmIndex] = new int[kArmParamArrayLen];
+	personPartsParameters_[kArmIndex][0] = sqrt(1300);
 }
 
 
