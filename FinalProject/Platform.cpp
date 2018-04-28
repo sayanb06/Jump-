@@ -3,7 +3,7 @@
 
 Platform::Platform() {
 	xPos_ = rand() % (int) (ofGetWindowWidth() * BORDER_WIDTH_FACTOR) + ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR) / 2;
-	yPos_ = (int) (rand() % (int)(ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR))) + ofGetWindowHeight() * BORDER_WIDTH_FACTOR; 
+	yPos_ = (int) (rand() % (int)(ofGetWindowHeight() * BORDER_WIDTH_FACTOR)) + ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR); 
 	length_ = 50;
 	height_ = 10;
 }

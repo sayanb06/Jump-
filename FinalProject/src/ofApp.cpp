@@ -39,7 +39,6 @@ void ofApp::draw(){
 		drawLeg(lastX, lastY);
 		drawTorso(lastX, lastY);
 
-		ofSetColor(ofColor(255, 0, 0, 255 / 4.0));
 		if (mouseX_ != SENTIEL_MOUSE_POSITION && mouseY_ != SENTIEL_MOUSE_POSITION) {
 			if (mouseX_ < lastX) {
 				drawRightArm(lastX, lastY);
@@ -47,7 +46,7 @@ void ofApp::draw(){
 			else {
 				drawLeftArm(lastX, lastY);
 			}
-			ofDrawCircle(mouseX_, mouseY_, 15);
+			ofSetColor(ofColor(255, 0, 0, 255 / 4.0));
 			drawDottedLine(lastX, lastY - playerPartsParameters_[Person::kTorsoIndex][0] / 2, mouseX_, mouseY_);
 		}
 		else {
@@ -57,6 +56,9 @@ void ofApp::draw(){
 		lastY -= playerPartsParameters_[Person::kTorsoIndex][0];
 		lastHeadPositionX_ = lastX;
 		lastHeadPositionY_ = lastY;
+	}
+	if ((!isMoving_ || hasReached_) && (mouseX_ != SENTIEL_MOUSE_POSITION && mouseY_ != SENTIEL_MOUSE_POSITION)) {
+		ofDrawCircle(mouseX_, mouseY_, 15);
 	}
 
 	ofSetColor(rValue_, gValue_, bValue_);
@@ -90,25 +92,39 @@ void ofApp::drawLeftArm(int lastX, int lastY) {
 }
 
 void ofApp::drawHead() {
-	ofDrawCircle(lastHeadPositionX_, lastHeadPositionY_ - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
-	carl_.draw(lastHeadPositionX_ - 1.5 * playerPartsParameters_[Person::kCircleRadiusIndex][0], lastHeadPositionY_ - 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]
-		, 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0], 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]);
 
 	if (isMoving_) {
-		double differenceX = (clickedLocations_.back()[0] - lastHeadPositionX_) / 1000.0;
-		double differenceY = (clickedLocations_.back()[1] - lastHeadPositionX_) / 1000.0;
-		double angle = atan(differenceY / differenceX);
-		if (differenceX < 0) {
-			angle += PI;
+		if (abs(clickedLocations_.back()[0] - lastHeadPositionX_) < 1 && abs(clickedLocations_.back()[1] - lastHeadPositionY_) < 1) {
+			hasReached_ = true;
 		}
 
-		if (abs(differenceX) > abs(3 * cos(angle))) {
-			lastHeadPositionX_ += differenceX;
-			lastHeadPositionY_ += differenceY;
+		ofDrawCircle(lastHeadPositionX_, lastHeadPositionY_ - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0]);
+		ofSetColor(ofColor::blueSteel);
+		ofDrawCircle(lastHeadPositionX_, lastHeadPositionY_ - playerPartsParameters_[Person::kCircleRadiusIndex][0], playerPartsParameters_[Person::kCircleRadiusIndex][0] * kInnerToOuterCircleFactor);
+
+		if (!hasReached_) {
+			double differenceX = (clickedLocations_.back()[0] - lastHeadPositionX_) / 1500.0;
+			double differenceY = (clickedLocations_.back()[1] - lastHeadPositionY_) / 1500.0;
+			double angle = atan(differenceY / differenceX);
+			if (differenceX < 0) {
+				angle += PI;
+			}
+
+
+			if (abs(differenceX) > abs(0.3 * cos(angle))) {
+				lastHeadPositionX_ += differenceX;
+				lastHeadPositionY_ += differenceY;
+			}
+			else {
+				lastHeadPositionX_ += 0.3 * cos(angle);
+				lastHeadPositionY_ += 0.3 * sin(angle);
+			}
 		} else {
-			lastHeadPositionX_ += 3 * cos(angle);
-			lastHeadPositionY_ += 3 * sin(angle);
+			lastHeadPositionY_ += 0.04;
 		}
+	} else {
+		carl_.draw(lastHeadPositionX_ - 1.5 * playerPartsParameters_[Person::kCircleRadiusIndex][0], lastHeadPositionY_ - 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]
+			, 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0], 3 * playerPartsParameters_[Person::kCircleRadiusIndex][0]);
 	}
 }
 
@@ -156,9 +172,21 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if (!isMoving_ && (x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
-		clickedLocations_.push_back({ x, y });
+	if ((!isMoving_ || hasReached_) && ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9))) {
+		if (x < ofGetWindowWidth() * 0.1) {
+			double yChangeFromHead = y - lastHeadPositionY_;
+			double xChangeFromHead = x - lastHeadPositionX_;
+			double actualChangeFromHead = playerPartsParameters_[Person::kCircleRadiusIndex][0] - lastHeadPositionX_;
+			clickedLocations_.push_back({ (double) playerPartsParameters_[Person::kCircleRadiusIndex][0] , y + yChangeFromHead / (abs(yChangeFromHead)) *  actualChangeFromHead / xChangeFromHead});
+		} else {
+			double yChangeFromHead = y - lastHeadPositionY_;
+			double xChangeFromHead = lastHeadPositionX_ - x;
+			double actualChangeFromHead = ofGetWindowWidth() - playerPartsParameters_[Person::kCircleRadiusIndex][0] - lastHeadPositionX_;
+			clickedLocations_.push_back({ (double)(ofGetWindowWidth() - playerPartsParameters_[Person::kCircleRadiusIndex][0]) , y + yChangeFromHead / (abs(yChangeFromHead)) *  actualChangeFromHead / xChangeFromHead });
+		}
+		std::cout << isMoving_ << " " << hasReached_ << std::endl;
 		isMoving_ = true;
+		hasReached_ = false;
 	}
 }
 

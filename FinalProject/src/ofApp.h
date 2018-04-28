@@ -30,10 +30,12 @@ private:
 	clock_t startTime_ = clock();
 	int rValue_, gValue_, bValue_;
 
-	std::list<std::array<int, 2>> clickedLocations_;
+	std::list<std::array<double, 2>> clickedLocations_;
 
-	int lastHeadPositionX_ = 0, lastHeadPositionY_ = 0;
-	int isMoving_ = false;
+	double lastHeadPositionX_ = 0, lastHeadPositionY_ = 0;
+	bool isMoving_ = false;									//is on the way to the next platfor
+	bool hasReached_ = false;								//has reached that platform_, not necessarily opposites
+	const double kInnerToOuterCircleFactor = 1 / 3.0;
 public:
 	void setup();
 	void update();

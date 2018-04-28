@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 
-#define BORDER_WIDTH_FACTOR 0.9
+#define BORDER_WIDTH_FACTOR 0.1
 
 class Platform
 {
