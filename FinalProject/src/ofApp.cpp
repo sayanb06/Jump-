@@ -7,17 +7,39 @@ void ofApp::setup(){
 	mySound_.setLoop(true);
 	
 	playerPartsParameters_ = currentPlayer_.getPerson();
-	allPlatforms.push_back(Platform());
+	allPlatforms_.push_back(Platform(platformWidth_, platformHeight_));
+	allPlatforms_.push_back(Platform(platformWidth_, platformHeight_, ofGetWindowHeight() * BORDER_WIDTH_FACTOR, ofGetWindowHeight() * BORDER_WIDTH_FACTOR * 2));
 	carl_.load(CARL_IMAGE);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	if (allPlatforms_.back().getPlatform().intersects(ofRectangle(
+				lastHeadPositionX_ - playerPartsParameters_[Person::kCircleRadiusIndex][0]
+				, lastHeadPositionY_ - playerPartsParameters_[Person::kCircleRadiusIndex][0]
+				, playerPartsParameters_[Person::kCircleRadiusIndex][0] * 2
+				, playerPartsParameters_[Person::kCircleRadiusIndex][0] * 2))) {
+		isChangingPlatforms_ = false;
+		hasReached_ = true;
+		platformIsMovingDown_ = true;
+		mouseX_ = SENTIEL_MOUSE_POSITION;
+		mouseY_ = SENTIEL_MOUSE_POSITION;
+		allPlatforms_.push_back(Platform(platformWidth_, platformHeight_, ofGetWindowHeight() * 2 * BORDER_WIDTH_FACTOR - (ofGetWindowHeight() - allPlatforms_.back().getYPos()), ofGetWindowHeight() * BORDER_WIDTH_FACTOR * 3 - (ofGetWindowHeight() - allPlatforms_.back().getYPos())));
+	}
+	if ((allPlatforms_.back().getYPos() > lastHeadPositionY_ + playerPartsParameters_[Person::kCircleRadiusIndex][0]) || (lastHeadPositionY_ > ofGetWindowHeight())) {
+		isDead_ = true;
+	}
+	if (platformIsMovingDown_ && allPlatforms_[allPlatforms_.size() - 2].getYPos() > ofGetWindowHeight() * (1-BORDER_WIDTH_FACTOR)) {
+		platformIsMovingDown_ = false;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	ofSetColor(0, 0, 0);
+	std::string scoreText = "Score: " + std::to_string(allPlatforms_.size() - 1);
+	ofDrawBitmapString(scoreText, ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR) - scoreText.size() , 15);
+	ofSetColor(rValue_, gValue_, bValue_);
 	if (clock() - startTime_ > 400) {
 		rValue_ = rand() % MAX_RGB;
 		gValue_ = rand() % MAX_RGB;
@@ -25,16 +47,20 @@ void ofApp::draw(){
 		startTime_ = clock();
 	}
 	ofSetColor(ofColor(rValue_, gValue_, bValue_));
-	for (int index = 0; index < allPlatforms.size(); ++index) {
-		ofDrawRectangle(allPlatforms[index].getPlatform());
+	for (int index = 0; index < allPlatforms_.size(); ++index) {
+		if (platformIsMovingDown_) {
+			allPlatforms_[index].movePlatformDown(0.1);
+		}
+		ofDrawRectangle(allPlatforms_[index].getPlatform());
 	}
 	
 	int lastX, lastY;
 	
-	if (!isMoving_) {
+	if (!isChangingPlatforms_) {
 		ofSetColor(ofColor(MAX_RGB - rValue_, MAX_RGB - gValue_, MAX_RGB - bValue_));
-		lastY = allPlatforms.back().getYPos() - (allPlatforms.back().getHeight() / 2); //top of the platform
-		lastX = allPlatforms.back().getXPos() + (allPlatforms.back().getLength() / 2); //middle of the platform
+		int indexSecondToLast = allPlatforms_.size() - 2;
+		lastY = allPlatforms_[indexSecondToLast].getYPos() - (allPlatforms_[indexSecondToLast].getHeight() / 2); //top of the platform
+		lastX = allPlatforms_[indexSecondToLast].getXPos() + (allPlatforms_[indexSecondToLast].getLength() / 2); //middle of the platform
 
 		drawLeg(lastX, lastY);
 		drawTorso(lastX, lastY);
@@ -57,7 +83,7 @@ void ofApp::draw(){
 		lastHeadPositionX_ = lastX;
 		lastHeadPositionY_ = lastY;
 	}
-	if ((!isMoving_ || hasReached_) && (mouseX_ != SENTIEL_MOUSE_POSITION && mouseY_ != SENTIEL_MOUSE_POSITION)) {
+	if ((!isChangingPlatforms_ || hasReached_) && (mouseX_ != SENTIEL_MOUSE_POSITION && mouseY_ != SENTIEL_MOUSE_POSITION)) {
 		ofDrawCircle(mouseX_, mouseY_, 15);
 	}
 
@@ -93,7 +119,7 @@ void ofApp::drawLeftArm(int lastX, int lastY) {
 
 void ofApp::drawHead() {
 
-	if (isMoving_) {
+	if (isChangingPlatforms_) {
 		if (abs(clickedLocations_.back()[0] - lastHeadPositionX_) < 1 && abs(clickedLocations_.back()[1] - lastHeadPositionY_) < 1) {
 			hasReached_ = true;
 		}
@@ -156,7 +182,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	if ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
+	if (((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) && !platformIsMovingDown_) {
 		mouseX_ = x;
 		mouseY_ = y;
 	} else {
@@ -167,12 +193,12 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+	mouseMoved(x, y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if ((!isMoving_ || hasReached_) && ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9))) {
+	if ((!isChangingPlatforms_ || hasReached_ || !platformIsMovingDown_) && ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9))) {
 		if (x < ofGetWindowWidth() * 0.1) {
 			double yChangeFromHead = y - lastHeadPositionY_;
 			double xChangeFromHead = x - lastHeadPositionX_;
@@ -184,8 +210,7 @@ void ofApp::mousePressed(int x, int y, int button){
 			double actualChangeFromHead = ofGetWindowWidth() - playerPartsParameters_[Person::kCircleRadiusIndex][0] - lastHeadPositionX_;
 			clickedLocations_.push_back({ (double)(ofGetWindowWidth() - playerPartsParameters_[Person::kCircleRadiusIndex][0]) , y + yChangeFromHead / (abs(yChangeFromHead)) *  actualChangeFromHead / xChangeFromHead });
 		}
-		std::cout << isMoving_ << " " << hasReached_ << std::endl;
-		isMoving_ = true;
+		isChangingPlatforms_ = true;
 		hasReached_ = false;
 	}
 }
@@ -197,10 +222,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-	if ((x < ofGetWindowWidth() * 0.1) || (x > ofGetWindowWidth() * 0.9)) {
-		mouseX_ = x;
-		mouseY_ = y;
-	}
+	mouseMoved(x, y);
 }
 
 //--------------------------------------------------------------

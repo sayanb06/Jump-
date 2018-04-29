@@ -5,7 +5,7 @@ Person::Person() {
 	personPartsParameters_ = new int*[kNumberOfBodyParts];
 	
 	//circle
-	personPartsParameters_[kCircleRadiusIndex] = new int[kcircleParamArrayLen];
+	personPartsParameters_[kCircleRadiusIndex] = new int[kCircleParamArrayLen];
 	personPartsParameters_[kCircleRadiusIndex][0] = CIRCLE_RADIUS;
 
 	//Torso

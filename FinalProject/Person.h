@@ -16,7 +16,7 @@ private:
 	
 	const int kNumberOfBodyParts = 4;
 
-	const int kcircleParamArrayLen = 1;
+	const int kCircleParamArrayLen = 1;
 	const int kTorsoParamArrayLen = 1;
 	const int kLegParamArrayLen = 2;
 	const int kArmParamArrayLen = 1;

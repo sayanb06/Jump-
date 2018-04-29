@@ -11,7 +11,7 @@
 class ofApp : public ofBaseApp{
 private:
 	//platforms that have been initialized
-	std::vector<Platform> allPlatforms;
+	std::vector<Platform> allPlatforms_;
 	
 	//sound I'm going to be playing
 	ofSoundPlayer mySound_;
@@ -33,9 +33,15 @@ private:
 	std::list<std::array<double, 2>> clickedLocations_;
 
 	double lastHeadPositionX_ = 0, lastHeadPositionY_ = 0;
-	bool isMoving_ = false;									//is on the way to the next platfor
+	bool isChangingPlatforms_ = false;									//is on the way to the next platfor
 	bool hasReached_ = false;								//has reached that platform_, not necessarily opposites
+	bool platformIsMovingDown_ = false;
 	const double kInnerToOuterCircleFactor = 1 / 3.0;
+	bool isDead_ = false;
+	int platformWidth_ = 50;
+	const int platformHeight_ = 10;
+
+
 public:
 	void setup();
 	void update();

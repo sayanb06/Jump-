@@ -1,12 +1,7 @@
 #include "Platform.h"
 #include <stdlib.h>
 
-Platform::Platform() {
-	xPos_ = rand() % (int) (ofGetWindowWidth() * BORDER_WIDTH_FACTOR) + ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR) / 2;
-	yPos_ = (int) (rand() % (int)(ofGetWindowHeight() * BORDER_WIDTH_FACTOR)) + ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR); 
-	length_ = 50;
-	height_ = 10;
-}
+Platform::Platform(int width, int height) : Platform(width, height, ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR), ofGetWindowHeight()) {}
 
 
 Platform::~Platform() {
@@ -14,6 +9,13 @@ Platform::~Platform() {
 	yPos_ = 0;
 	length_ = 0;
 	height_ = 0;
+}
+
+Platform::Platform(int width, int height, int yPosMin, int yPosMax) {
+	xPos_ = rand() % ofGetWindowWidth();
+	yPos_ = rand() % (yPosMax - yPosMin) + yPosMin;
+	length_ = width;
+	height_ = height;
 }
 
 ofRectangle Platform::getPlatform() {
@@ -38,4 +40,8 @@ int Platform::getXPos() {
 
 int Platform::getYPos() {
 	return yPos_;
+}
+
+void Platform::movePlatformDown(double yChange) {
+	yPos_ += yChange;
 }
