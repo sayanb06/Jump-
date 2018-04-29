@@ -95,13 +95,8 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -122,6 +117,8 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
       <WarningLevel>Level3</WarningLevel>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>
+C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -138,13 +135,8 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -166,13 +158,8 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -201,6 +188,7 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src\ofxTCPServer.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src\ofxUDPManager.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.cpp" />
+    <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src\ofxTrueTypeFontUC.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp" />
     <ClCompile Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.cpp" />
@@ -229,6 +217,7 @@ C:\Users\sayan\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxXml
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src\ofxTCPServer.h" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxNetwork\src\ofxUDPManager.h" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.h" />
+    <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxTrueTypeFontUC\src\ofxTrueTypeFontUC.h" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS.hpp" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp" />
     <ClInclude Include="..\..\..\..\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />

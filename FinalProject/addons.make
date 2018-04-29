@@ -3,3 +3,4 @@ ofxNetwork
 ofxThreadedImageLoader
 ofxVectorGraphics
 ofxXmlSettings
+ofxTrueTypeFontUC

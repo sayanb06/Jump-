@@ -1,7 +1,8 @@
-#include "ofApp.h"
+﻿#include "ofApp.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetWindowTitle("JUMP! by Sayan Bhattacharjee");
 	mySound_.load(SOUND_NAME);
 	//mySound_.play();
 	mySound_.setLoop(true);
@@ -10,6 +11,8 @@ void ofApp::setup(){
 	allPlatforms_.push_back(Platform(platformWidth_, platformHeight_));
 	allPlatforms_.push_back(Platform(platformWidth_, platformHeight_, ofGetWindowHeight() * BORDER_WIDTH_FACTOR, ofGetWindowHeight() * BORDER_WIDTH_FACTOR * 2));
 	carl_.load(CARL_IMAGE);
+	regularFont_.load(REGULAR_FONT_NAME, REGULAR_FONT_SIZE);
+	arrowFont_.load(ARROW_FONT_NAME, ARROW_FONT_SIZE);
 }
 
 //--------------------------------------------------------------
@@ -28,6 +31,7 @@ void ofApp::update(){
 	}
 	if ((allPlatforms_.back().getYPos() > lastHeadPositionY_ + playerPartsParameters_[Person::kCircleRadiusIndex][0]) || (lastHeadPositionY_ > ofGetWindowHeight())) {
 		isDead_ = true;
+		std::exit(0);
 	}
 	if (platformIsMovingDown_ && allPlatforms_[allPlatforms_.size() - 2].getYPos() > ofGetWindowHeight() * (1-BORDER_WIDTH_FACTOR)) {
 		platformIsMovingDown_ = false;
@@ -36,9 +40,36 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	if (currentState_ == MENU) {
+		drawMenu();
+	} else if (currentState_ == IN_PROGRESS) {
+		drawGamePlay();
+	} else if (currentState_ == PAUSED) {
+		drawPaused();
+	} else if (currentState_ == FINISHED) {
+
+	} else if (currentState_ == HIGH_SCORES) {
+		drawHighScores();
+	}
+}
+
+void ofApp::drawMenu() {
+	ofSetColor(ofColor::black);
+	std::ostringstream menuString;
+	menuString << "Welcome to Jump!" << std::endl << std::endl;
+	menuString << "Select One:" << std::endl;
+	menuString << "1. Play Game" << std::endl;;
+	menuString << "2. High Scores" << std::endl;
+	std::string quitString = "Press q to exit game";
+	regularFont_.drawString(menuString.str(), ofGetWindowWidth() * BORDER_WIDTH_FACTOR, ofGetWindowHeight() * BORDER_WIDTH_FACTOR);
+	arrowFont_.drawString("f", ofGetWindowWidth() * BORDER_WIDTH_FACTOR - 1.5 * ARROW_FONT_SIZE, ofGetWindowHeight() * BORDER_WIDTH_FACTOR + REGULAR_FONT_SIZE * (4 + menuOptionHighlighted_));
+	regularFont_.drawString(quitString, (ofGetWindowWidth() - REGULAR_FONT_SIZE * quitString.size()) / 2.0, ofGetWindowHeight() * BORDER_WIDTH_FACTOR + 8 * (REGULAR_FONT_SIZE + 1));
+}
+
+void ofApp::drawGamePlay() {
 	ofSetColor(0, 0, 0);
 	std::string scoreText = "Score: " + std::to_string(allPlatforms_.size() - 1);
-	ofDrawBitmapString(scoreText, ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR) - scoreText.size() , 15);
+	ofDrawBitmapString(scoreText, ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR) - scoreText.size(), 15);
 	ofSetColor(rValue_, gValue_, bValue_);
 	if (clock() - startTime_ > 400) {
 		rValue_ = rand() % MAX_RGB;
@@ -53,9 +84,9 @@ void ofApp::draw(){
 		}
 		ofDrawRectangle(allPlatforms_[index].getPlatform());
 	}
-	
+
 	int lastX, lastY;
-	
+
 	if (!isChangingPlatforms_) {
 		ofSetColor(ofColor(MAX_RGB - rValue_, MAX_RGB - gValue_, MAX_RGB - bValue_));
 		int indexSecondToLast = allPlatforms_.size() - 2;
@@ -89,6 +120,14 @@ void ofApp::draw(){
 
 	ofSetColor(rValue_, gValue_, bValue_);
 	drawHead();
+}
+
+void ofApp::drawPaused() {
+
+}
+
+void ofApp::drawHighScores() {
+
 }
 
 void ofApp::drawLeg(int &lastX, int &lastY) {
@@ -172,7 +211,21 @@ void ofApp::drawDottedLine(int startX, int startY, int endX, int endY) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	std::cout << key << std::endl;
+	
+	int upperKey = toupper(key);
+	if (upperKey == 'Q') {
+		std::exit(0);
+	}
+	if (currentState_ == MENU) {
+		if (upperKey == KEY_UP) {
+			menuOptionHighlighted_ = menuOptionHighlighted_ == 1 ? 2 : 1;
+		} else if (upperKey == KEY_DOWN) {
+			menuOptionHighlighted_ = menuOptionHighlighted_ == 1 ? 2 : 1;
+		} else if (upperKey == ENTER_KEY) {
+			currentState_ = (menuOptionHighlighted_ == 1) ? IN_PROGRESS : HIGH_SCORES;
+		}
+	}
 }
 
 //--------------------------------------------------------------
