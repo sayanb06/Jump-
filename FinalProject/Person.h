@@ -13,8 +13,6 @@ private:
 	]
 	*/
 	int** personPartsParameters_;
-	
-	const int kNumberOfBodyParts = 4;
 
 	const int kCircleParamArrayLen = 1;
 	const int kTorsoParamArrayLen = 1;
@@ -22,6 +20,7 @@ private:
 	const int kArmParamArrayLen = 1;
 
 public:
+	static const int kNumberOfBodyParts = 4;
 	static const int kCircleRadiusIndex = 0;
 	static const int kTorsoIndex = 1;
 	static const int kLegIndex = 2;

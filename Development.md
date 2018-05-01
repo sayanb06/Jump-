@@ -8,12 +8,18 @@
 ### 3. drew Professor Carl Graham Evans!
 ### 4. Added sound
 
-##4/27:
+## 4/27:
 ### 1. added motion when the user clicks it's not going in the correct direction
 ### 2. motion is fixed including the following bugs: multiples jumps, switching direction while in the middle of the path. Have to add multiple platforms capability
 ### 3. Full motion including multiple platforms, infinite scroll, and intersection
 A bug that persists is intersections between the head and the next platform
 
-##4/28
+## 4/28
 ### 1. Added Menu Support:
 added q option to exit game, but currently nothing is shown for High Scores, or Paused
+
+## 4/30
+### 1. Cleaned up code
+found most space/time effective solutions to storing last clicked location  
+explained code with comments, formatted code, and removed magic numbers, started keeping track of high scores
+Issues: Platforms moving around and smaller platforms haven't been implemented, and when the user is in the middle of switching platforms, the ball can turn around

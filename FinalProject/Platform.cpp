@@ -12,7 +12,7 @@ Platform::~Platform() {
 }
 
 Platform::Platform(int width, int height, int yPosMin, int yPosMax) {
-	xPos_ = rand() % ofGetWindowWidth();
+	xPos_ = rand() % (int)(ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR - BORDER_WIDTH_FACTOR)) + ofGetWindowWidth() * BORDER_WIDTH_FACTOR;
 	yPos_ = rand() % (yPosMax - yPosMin) + yPosMin;
 	length_ = width;
 	height_ = height;
