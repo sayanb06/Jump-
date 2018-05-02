@@ -6,28 +6,25 @@
 class Platform
 {
 private:
-	//x position of the platform
-	double xPos_;
+	double xPos_;							//x position of the platform
+	double yPos_;							//y position of the platform
+	double length_ = -1;					//length of the platform
+	double height_ = -1;					//height of the platform
 
-	//y position of the platform
-	double yPos_;
-
-	//length of the platform
-	double length_ = -1;
-
-	//height of the platform
-	double height_ = -1;
 public:
-	//initializer with random width, height and length determined by area
-	Platform(int width, int height);
-	~Platform();
-	Platform(int width, int height, int yPosMin, int yPosMax);
 
+	//initializer with random width, height and length determined by area
+	Platform(double width, double height);
+	~Platform();
+	Platform(double width, double height, double yPosMin, double yPosMax);
+	bool movedLeftLast = false;
 	//platform
 	ofRectangle getPlatform();
 
-	int getLength(), getHeight(), getXPos(), getYPos();
+	double getLength(), getHeight(), getXPos(), getYPos();
 
 	void movePlatformDown(double yChange);
+
+	void moveXDirection(double xChange);
 };
 

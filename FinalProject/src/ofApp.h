@@ -3,7 +3,8 @@
 #define MAX_RGB 256
 #define CARL_IMAGE "Carl.png"
 #define SENTIEL_MOUSE_POSITION -100
-#define REGULAR_FONT_SIZE 25
+#define SENTIEL_PLATFORM_WIDTH 50
+#define REGULAR_FONT_SIZE 22
 #define REGULAR_FONT_NAME "Gameplay.ttf"
 #define ARROW_FONT_SIZE 25
 #define ARROW_FONT_NAME "Arrows tfb.ttf"
@@ -42,20 +43,26 @@ private:
 	int menuOptionHighlighted_ = 1;									//know which element to highlight in menu
 	double lastClickedLocation_[2];									//gets information from mousePressed event
 	bool isChangingPlatforms_ = false;								//is on the way to the next platfor
-	bool hasReached_ = false;										//has reached that platform_, not necessarily opposites
-	bool platformIsMovingDown_ = false;								//moving to a different platform
+	bool hasReachedBorder_ = false;										//has reached that platform_, not necessarily opposites
+	bool platformsMovingDown_ = false;								//moving to a different platform
 	const double kInnerToOuterCircleFactor = 1 / 3.0;				//ratio of the outer head to inner head when player moving
-	bool isDead_ = false;											//if the user has died
 	int platformWidth_ = 50;
 	const int platformHeight_ = 10;
 	const double minPlatformHeightFactor = 2, maxPlatformHeightFactor = 3.5;//how far the platform should be from the top border
-	const double mouseMarkerRadius = 15;
+	const int mouseMarkerRadius = 15;
+	const double platformMoveDownRate = 0.1;
+	const double quarterColorOpacity = 0.25;
+	const int numMenuOptions = 2;
+	std::vector<int> highScores_;
+	const int numPlatsBeforeRandom = 7;
+	
 
 	//setup utilities
 	ofSoundPlayer mySound_;											//sound that I'm going to be playing
 	ofImage carl_;													//image of prof. evans
 	Person* player;													//current player
-	clock_t startTime_ = clock();									//current time
+	clock_t colorResetTime_ = clock();								//current time
+	clock_t platformMoveTime_ = clock();
 	ofTrueTypeFont regularFont_;
 	ofTrueTypeFont arrowFont_;
 
@@ -66,6 +73,9 @@ private:
 	void drawAllPlatforms();										//drawing all the platforms if I want to do something with falling down
 	void drawBody();
 	void drawScore();
+	void updateGamePlay();
+	void resetGamePlay();
+	void addScoreAndSort(int score = 0);							// add the score the end of the list, then sort. If there are more than 10 elements, remove elements
 public:
 	
 	void setup();
@@ -81,7 +91,6 @@ public:
 	
 	void loadHighScores();
 	std::string getHighScoresString();
-	std::vector<int> highScores_;
 
 	//draw each part of the person
 	void drawLeg(int &lastX, int &lastY);							//dereferenced so that the the lastX, lastY updated

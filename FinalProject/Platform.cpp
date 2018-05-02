@@ -1,7 +1,7 @@
 #include "Platform.h"
 #include <stdlib.h>
 
-Platform::Platform(int width, int height) : Platform(width, height, ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR), ofGetWindowHeight()) {}
+Platform::Platform(double width, double height) : Platform(width, height, ofGetWindowHeight() * (1 - BORDER_WIDTH_FACTOR), ofGetWindowHeight()) {}
 
 
 Platform::~Platform() {
@@ -11,9 +11,9 @@ Platform::~Platform() {
 	height_ = 0;
 }
 
-Platform::Platform(int width, int height, int yPosMin, int yPosMax) {
+Platform::Platform(double width, double height, double yPosMin, double yPosMax) {
 	xPos_ = rand() % (int)(ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR - BORDER_WIDTH_FACTOR)) + ofGetWindowWidth() * BORDER_WIDTH_FACTOR;
-	yPos_ = rand() % (yPosMax - yPosMin) + yPosMin;
+	yPos_ = rand() % (int)(yPosMax - yPosMin) + yPosMin;
 	length_ = width;
 	height_ = height;
 }
@@ -26,22 +26,42 @@ ofRectangle Platform::getPlatform() {
 	return ofRectangle(xPos_ , yPos_, length_, height_);
 }
 
-int Platform::getHeight() {
+double Platform::getHeight() {
 	return height_;
 }
 
-int Platform::getLength() {
+double Platform::getLength() {
 	return length_;
 }
 
-int Platform::getXPos() {
+double Platform::getXPos() {
 	return xPos_;
 }
 
-int Platform::getYPos() {
+double Platform::getYPos() {
 	return yPos_;
 }
 
 void Platform::movePlatformDown(double yChange) {
 	yPos_ += yChange;
+}
+
+void Platform::moveXDirection(double xChange) {
+	bool inLeftBorder = xPos_ <= (ofGetWindowWidth() * BORDER_WIDTH_FACTOR);
+	bool inRightBorder = xPos_ >= (ofGetWindowWidth() * (1 - BORDER_WIDTH_FACTOR));
+	if (inLeftBorder) {
+		//move only right
+		xPos_ += xChange;
+		movedLeftLast = false;
+	} else if (inRightBorder) {
+		//move only left
+		xPos_ -= xChange;
+		movedLeftLast = true;
+	} else {
+		if (movedLeftLast) {
+			xPos_ -= xChange;
+		} else {
+			xPos_ += xChange;
+		}
+	}
 }
