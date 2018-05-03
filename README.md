@@ -1,5 +1,8 @@
 # CS 126 FinalProject
 
+##Installation
+You must have files in the correct locations (like the downloads folder), some of the files did not have a relative path so I needed a static path.
+
 ## Platform:
 creates a random level for the player to  jump onto
 

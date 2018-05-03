@@ -9,12 +9,12 @@ I want to create a basic jumping game where a player can deflect off a wall from
 #### I have a decent background in harmonic motion, and more than that, I have worked with [animations](https://drive.google.com/open?id=0B40pTTBd-6I8ZUtoS1QzN2p1NVk) before for a previous c++ class where I did facilitated the animation of the scene from a still image.
 
 # Base Goals:
-Moving Platforms  
-Moving Person / Ball  
-Sound  
-Basic Gameplay
-Image
-Score Keeping
+Moving Platforms - Check
+Moving Person / Ball   - Check
+Sound   - Check
+Basic Gameplay - Check
+Image - Check
+Score Keeping - Check
 
 # Stretch Goals
-Database
+Database - Didn't get to this, but kept track of high scores!.

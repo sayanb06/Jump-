@@ -10,16 +10,16 @@ Person::Person() {
 
 	//Torso
 	personPartsParameters_[kTorsoIndex] = new int[kTorsoParamArrayLen];
-	personPartsParameters_[kTorsoIndex][0] = 30;
+	personPartsParameters_[kTorsoIndex][0] = kTorsoHeight;
 	
 	//Both Legs
 	personPartsParameters_[kLegIndex] = new int[kLegParamArrayLen];
-	personPartsParameters_[kLegIndex][0] = 20;
-	personPartsParameters_[kLegIndex][1] = 30;
+	personPartsParameters_[kLegIndex][0] = kLegDeltaX;
+	personPartsParameters_[kLegIndex][1] = kLegDeltaY;
 
 	//Both Arms
 	personPartsParameters_[kArmIndex] = new int[kArmParamArrayLen];
-	personPartsParameters_[kArmIndex][0] = sqrt(1300);
+	personPartsParameters_[kArmIndex][0] = kArmSpan;
 }
 
 

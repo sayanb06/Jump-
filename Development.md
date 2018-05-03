@@ -25,18 +25,39 @@ explained code with comments, formatted code, and removed magic numbers, started
 Issues: Platforms moving around and smaller platforms haven't been implemented, and when the user is in the middle of switching platforms, the ball can turn around  
 
 ## 5/1
-## 1. Circle and Platform Intersecting
+### 1. Circle and Platform Intersecting
 I tried redefining how to know if a platform is intersecting with the head but it didn't work nearly as well as I'd have hoped
-## Game Over
+### Game Over
 I handled game over by making sure correct scenario was shown.
-## High Scores
+### High Scores
 I just displayed high scores when the game was over and in the menu by choice. Then when closing by 'Q', I made sure the high scores were added to the local file.
-## drawPause
+### drawPause
 I made a pause screen.  
 
-## To finish up the project:
+### To finish up the project:
 1. I want to see if I can add stars  
 2. I need to have the platform getting smaller as time goes on
 3. I also need to make sure the head of Prof. Evans looks circular rather than rectangular.
 4. I want to add a control to the high scores screen so that the high scores can be cleared and given a fresh start
 5. Finally, I just need to clean up my code to make sure that it is readable.
+
+## 5/2
+### 1. Circle and Platform Intersecting
+I redid checking of the intersections and it got a little better but not significantly more
+### 2. I made a control to clear High Scores
+That was easy.
+### 3. Stars  
+I didn't think I needed stars, instead I just put a relaxing picture of the sunset on a beach.
+
+### 4. I cleaned up the code and added comments to make it much more readable.
+That took some time.
+
+### 5. Picture of Prof. Evans
+I wasn't able to round the image given what was online, but I think it wasn't necessary.
+
+### 6. Obstacles/Challenges
+I increased speed after a certain number of platforms, and I also moved platforms around.
+
+### Overall
+I ran into a few bugs where the speed automatically increased but I fixed that pretty easily.
+This was a nice project even though it took some time. The result was worth it.
